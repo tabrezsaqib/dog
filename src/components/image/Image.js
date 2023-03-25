@@ -36,9 +36,11 @@ function Image() {
                                     <div className="dogImg">
                                       <img src={element} alt="Logo" width="100%" height="100%" />
                                     </div>
-                                    <div className="container">
-                                      <button>Adopt Me</button>
-                                    </div>
+                                    <NavLink to="/description" state={{ name: params?.name }}>
+                                      <div className="container">
+                                        <button>Adopt Me</button>
+                                      </div>
+                                    </NavLink>
                                   </div>
                                 );
                               })}

@@ -1,0 +1,236 @@
+.descriptionHeader {
+    width: 100vw;
+    height: 10vh;
+    background: url(../pictures/dogHeader.jpg)  no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+  }
+  .descriptionHeader h2{
+    color: black;
+   }
+  .descriptionBody {
+    width: 100vw;
+    height: 90vh;
+    background: url(../pictures/dogDisplay.jpg)  no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: center;
+  }
+  .descriptionImgContainer{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .descriptionImg{
+    width: 80%;
+    height: 50%;
+    border-radius: 25%;
+  }
+  .descriptionImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 25%;
+  }
+  .spanTitle{
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+  }
+  .descriptionContent{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 2px;
+    text-align: left;
+  }
+  .title{
+    font-style: italic;
+    font-weight: 750;
+    font-size: large;
+    color: rgb(149, 241, 149);
+  }
+  @media only screen and (max-width: 500px) and (min-width: 300px) {
+    .descriptionBody{
+      width: 100vw;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .descriptionImgContainer{
+      padding-top: 2rem;
+      width: 100%;
+      height: 50%;
+    
+    }
+    .descriptionImg{
+      width: 50%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionImg img{
+      width: 100%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionContent{
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  @media only screen and (max-width: 750px) and (min-width: 501px) {
+    .descriptionBody{
+      width: 100vw;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .descriptionImgContainer{
+      padding-top: 2rem;
+      width: 100%;
+      height: 50%;
+    
+    }
+    .descriptionImg{
+      width: 50%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionImg img{
+      width: 100%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionContent{
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  @media only screen and (max-width: 1000px) and (min-width: 751px) {
+    .descriptionBody{
+      width: 100vw;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .descriptionImgContainer{
+      padding-top: 2rem;
+      width: 100%;
+      height: 50%;
+    
+    }
+    .descriptionImg{
+      width: 50%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionImg img{
+      width: 100%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .descriptionContent{
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  @media only screen and (min-width: 1000px) {
+    .descriptionHeader {
+      width: 100vw;
+      height: 10vh;
+      background: url(../pictures/dogHeader.jpg)  no-repeat center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: white;
+    }
+    .descriptionHeader h2{
+      color: black;
+     }
+    .descriptionBody {
+      width: 100vw;
+      height: 90vh;
+      background: url(../pictures/dogDisplay.jpg)  no-repeat center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: auto;
+      justify-content: center;
+    }
+    .descriptionImgContainer{
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .descriptionImg{
+      width: 80%;
+      height: 50%;
+      border-radius: 25%;
+    }
+    .descriptionImg img{
+      width: 100%;
+      height: 100%;
+      border-radius: 25%;
+    }
+    .spanTitle{
+      font-style: normal;
+      font-weight: 600;
+      color: white;
+    }
+    .descriptionContent{
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      gap: 2px;
+      text-align: left;
+    }
+    .title{
+      font-style: italic;
+      font-weight: 750;
+      font-size: large;
+      color: rgb(149, 241, 149);
+    }
+  }

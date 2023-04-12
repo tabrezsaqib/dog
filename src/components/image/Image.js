@@ -37,7 +37,8 @@ function Image() {
                                   <div className="card">
                                     <div className="dogImg">
                                       <img src={element} alt="Logo" width="100%" height="100%" 
-                                      onClick={() => {alert(element)}}/>
+                                      // onClick={() => {alert(element)}}
+                                      />
                                     </div>
                                     <NavLink className="nextLink" 
                                     to={`/description/${params?.name}`} 

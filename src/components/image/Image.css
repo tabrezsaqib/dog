@@ -49,6 +49,11 @@
 
 .dogImg img{
   border-radius: 2.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.dogImg img:hover{
+  transform: scale(1.02);
 }
 
 .card:hover {
@@ -173,9 +178,14 @@
     width: 25vw;
     height: 40vh;
   }
-  
+
   .dogImg img{
     border-radius: 2.5rem;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .dogImg img:hover{
+    transform: scale(1.02);
   }
   
   .card:hover {

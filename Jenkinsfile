@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'DOCKER_USERNAME', description: 'Dcoker Username', defaultValue: 'mohamedtabrez')
+        string(name: 'DOCKER_PASSWORD', description: 'Dcoker password', defaultValue: 'DockerHub2024')
+    }
+
+
     environment {
         CI = 'false'
         BRANCH_NAME = ''
@@ -81,10 +87,9 @@ pipeline {
                 script {
                     try {
                         // Log in to Docker Hub
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DockerHub@2024')]) {
                             echo "Logging in to Docker Hub..."
                             bat """
-                            echo "DockerHub@2024" | docker login -u ${DOCKER_USERNAME} --password-stdin
+                            echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
                             if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                             echo "Login successful"
                             echo "Pushing Docker image..."
@@ -92,7 +97,6 @@ pipeline {
                             if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                             echo "Docker image pushed successfully"
                             """
-                        }
                     }
                     catch (Exception e) {
                         echo "Error during docker push: ${e.message}"

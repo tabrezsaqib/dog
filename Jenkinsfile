@@ -35,7 +35,7 @@ pipeline {
                         bat 'npm run build'
                     }
                     catch (Exception e) {
-                        echo "Error during npm install: ${e.message}"
+                        echo "Error during npm run build: ${e.message}"
                         throw e
                     }
                 }
@@ -45,14 +45,20 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                    def imageTag = "${branchName}-${commitHash}"
+                    try {
+                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                        def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                        def imageTag = "${branchName}-${commitHash}"
 
-                    sh """
-                    docker build -t ${DOCKER_IMAGE}:${imageTag} .
-                    """
-                    env.IMAGE_TAG = imageTag
+                        bat """
+                        docker build -t ${DOCKER_IMAGE}:${imageTag} .
+                        """
+                        env.IMAGE_TAG = imageTag
+                    }
+                    catch (Exception e) {
+                        echo "Error during docker build: ${e.message}"
+                        throw e
+                    }
                 }
             }
         }
@@ -60,10 +66,16 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    bat """
-                    echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin
-                    docker push ${DOCKER_IMAGE}:${env.IMAGE_TAG}
-                    """
+                    try {
+                        bat """
+                        echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin
+                        docker push ${DOCKER_IMAGE}:${env.IMAGE_TAG}
+                        """
+                    }
+                    catch (Exception e) {
+                        echo "Error during docker push: ${e.message}"
+                        throw e
+                    }
                 }
             }
         }

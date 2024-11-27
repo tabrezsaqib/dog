@@ -46,8 +46,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                        def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                        def commitHash = bat(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                        def branchName = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                         def imageTag = "${branchName}-${commitHash}"
 
                         bat """

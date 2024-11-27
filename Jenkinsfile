@@ -81,10 +81,10 @@ pipeline {
                 script {
                     try {
                         // Log in to Docker Hub
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DockerHub@2024')]) {
                             echo "Logging in to Docker Hub..."
                             bat """
-                            echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+                            echo "DockerHub@2024" | docker login -u ${DOCKER_USERNAME} --password-stdin
                             if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                             echo "Login successful"
                             echo "Pushing Docker image..."

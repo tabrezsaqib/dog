@@ -29,7 +29,15 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                bat 'npm run build'
+                script {
+                    try {
+                        bat 'npm run build'
+                    }
+                    catch (Exception e) {
+                        echo "Error during npm install: ${e.message}"
+                        throw e
+                    }
+                }
             }
         }
 

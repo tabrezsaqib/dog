@@ -15,6 +15,8 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
+                sh 'pwd && ls -al'
+                sh 'node -v && npm -v'
                 sh 'npm install'
             }
         }

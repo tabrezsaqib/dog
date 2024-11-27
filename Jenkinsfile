@@ -80,7 +80,7 @@ pipeline {
                 script {
                     try {
                         // Log in to Docker Hub
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'mohamedtabrez', passwordVariable: 'DockerHub@2024')]) {
+                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                             bat """
                             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
                             docker push ${imageName}

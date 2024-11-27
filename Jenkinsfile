@@ -90,9 +90,9 @@ pipeline {
                         type pwd.txt | docker login -u ${params.DOCKER_USERNAME} --password-stdin
                         if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                         echo "Docker login successful"
-                        
+                        bat "docker tag  ${env.IMAGE_NAME} mohamedtabrez/adopt-a-dog:v1"
                         echo "Pushing Docker image..."
-                        docker push ${env.IMAGE_NAME}
+                        docker push mohamedtabrez/adopt-a-dog:v1
                         if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                         echo "Docker image pushed successfully"
                         """

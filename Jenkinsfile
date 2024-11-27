@@ -26,9 +26,9 @@ pipeline {
             steps {
                 script {
                     // Capture the branch name and commit hash
-                    // env.BRANCH_NAME = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    env.BRANCH_NAME = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                     env.COMMIT_HASH = bat(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    // echo "Branch Name: ${env.BRANCH_NAME}"
+                    echo "Branch Name: ${env.BRANCH_NAME}"
                     echo "Commit Hash: ${env.COMMIT_HASH}"
 
                     // Define the Docker image name using the commit hash and branch name
@@ -90,9 +90,9 @@ pipeline {
                         type pwd.txt | docker login -u ${params.DOCKER_USERNAME} --password-stdin
                         if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                         echo "Docker login successful"
-                        docker tag  ${env.IMAGE_NAME} mohamedtabrez/adopt-a-dog:v1
+                        docker tag  ${env.IMAGE_NAME} mohamedtabrez/adopt-a-dog:${env.COMMIT_HASH}-${env.BRANCH_NAME}
                         echo "Pushing Docker image..."
-                        docker push mohamedtabrez/adopt-a-dog:v1
+                        docker push mohamedtabrez/adopt-a-dog:${env.COMMIT_HASH}-${env.BRANCH_NAME}
                         if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                         echo "Docker image pushed successfully"
                         """

@@ -82,9 +82,15 @@ pipeline {
                     try {
                         // Log in to Docker Hub
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                            echo "Logging in to Docker Hub..."
                             bat """
                             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+                            if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+                            echo "Login successful"
+                            echo "Pushing Docker image..."
                             docker push ${env.IMAGE_NAME}
+                            if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+                            echo "Docker image pushed successfully"
                             """
                         }
                     }

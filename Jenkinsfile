@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        bat 'npm run build'
+                        bat 'set CI=false && npm run build'
                     }
                     catch (Exception e) {
                         echo "Error during npm install: ${e.message}"

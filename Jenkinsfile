@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-        DOCKER_IMAGE = 'mohamedtabrez/dog'
+        DOCKER_IMAGE = 'mohamedtabrez/adopt-a-dog'
     }
 
     stages {

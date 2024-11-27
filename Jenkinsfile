@@ -15,9 +15,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pwd && ls -al'
-                sh 'node -v && npm -v'
-                sh 'npm install'
+                script {
+                    try {
+                        sh 'npm install'
+                    }
+                    catch (Exception e) {
+                        echo "Error during npm install: ${e.message}"
+                        throw e
+                    }
+                }
             }
         }
 

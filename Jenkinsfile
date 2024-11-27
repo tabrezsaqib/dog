@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'npm install'
+                        bat 'npm install'
                     }
                     catch (Exception e) {
                         echo "Error during npm install: ${e.message}"
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh """
+                    bat """
                     echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin
                     docker push ${DOCKER_IMAGE}:${env.IMAGE_TAG}
                     """

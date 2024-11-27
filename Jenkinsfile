@@ -88,7 +88,7 @@ pipeline {
                     try {
                         echo "Logging in to Docker Hub..."
                         bat """
-                        echo ${params.DOCKER_PASSWORD} | docker login -u ${params.DOCKER_USERNAME} --password-stdin
+                        cat ~/pwd.txt | docker login -u ${params.DOCKER_USERNAME} --password-stdin
                         if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
                         echo "Docker login successful"
                         

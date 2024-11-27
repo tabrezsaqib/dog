@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        CI = 'false'
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         DOCKER_IMAGE = 'mohamedtabrez/adopt-a-dog'
     }
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        bat 'set CI=false && npm run build'
+                        bat 'npm run build'
                     }
                     catch (Exception e) {
                         echo "Error during npm install: ${e.message}"

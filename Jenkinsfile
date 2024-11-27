@@ -9,11 +9,10 @@ pipeline {
 
     environment {
         CI = 'false'
+        IMAGE_NAME=''
         BRANCH_NAME = ''
         COMMIT_HASH = ''
-        IMAGE_NAME = ''
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-        DOCKER_IMAGE = 'mohamedtabrez/adopt-a-dog'
     }
 
     stages {
@@ -27,13 +26,13 @@ pipeline {
             steps {
                 script {
                     // Capture the branch name and commit hash
-                    env.BRANCH_NAME = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    // env.BRANCH_NAME = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                     env.COMMIT_HASH = bat(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    echo "Branch Name: ${env.BRANCH_NAME}"
+                    // echo "Branch Name: ${env.BRANCH_NAME}"
                     echo "Commit Hash: ${env.COMMIT_HASH}"
 
                     // Define the Docker image name using the commit hash and branch name
-                    env.IMAGE_NAME = "mohamedtabrez/adopt-a-dog:${env.COMMIT_HASH}-${env.BRANCH_NAME}"
+                    env.IMAGE_NAME = "mohamedtabrez/adopt-a-dog:${env.COMMIT_HASH}"
                     echo "Docker Image Name: ${env.IMAGE_NAME}"
                 }
             }

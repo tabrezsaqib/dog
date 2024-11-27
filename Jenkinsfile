@@ -86,17 +86,17 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Log in to Docker Hub
-                            echo "Logging in to Docker Hub..."
-                            bat """
-                            echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
-                            if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
-                            echo "Login successful"
-                            echo "Pushing Docker image..."
-                            docker push ${env.IMAGE_NAME}
-                            if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
-                            echo "Docker image pushed successfully"
-                            """
+                        echo "Logging in to Docker Hub..."
+                        bat """
+                        echo ${params.DOCKER_PASSWORD} | docker login -u ${params.DOCKER_USERNAME} --password-stdin
+                        if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+                        echo "Docker login successful"
+                        
+                        echo "Pushing Docker image..."
+                        docker push ${env.IMAGE_NAME}
+                        if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+                        echo "Docker image pushed successfully"
+                        """
                     }
                     catch (Exception e) {
                         echo "Error during docker push: ${e.message}"

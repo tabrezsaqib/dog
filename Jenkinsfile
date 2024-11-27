@@ -66,7 +66,7 @@ pipeline {
                 script {
                     try {
                         // Run the Docker build command to build the image and tag it
-                        bat "docker build -t ${imageName} ."
+                        bat "docker build -t ${env.IMAGE_NAME} ."
                     }
                     catch (Exception e) {
                         echo "Error during docker build: ${e.message}"
@@ -84,7 +84,7 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                             bat """
                             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
-                            docker push ${imageName}
+                            docker push ${env.IMAGE_NAME}
                             """
                         }
                     }

@@ -5,6 +5,8 @@ pipeline {
         CI = 'false'
         BRANCH_NAME = ''
         COMMIT_HASH = ''
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKER_IMAGE = 'mohamedtabrez/adopt-a-dog'
     }
 
     stages {
@@ -83,6 +85,7 @@ pipeline {
                             echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
                             docker push ${imageName}
                             """
+                        }
                     }
                     catch (Exception e) {
                         echo "Error during docker push: ${e.message}"
@@ -91,5 +94,6 @@ pipeline {
                 }
             }
         }
+        
     }
 }

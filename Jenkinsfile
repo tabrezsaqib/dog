@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         CI = 'false'
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-        DOCKER_IMAGE = 'mohamedtabrez/adopt-a-dog'
+        BRANCH_NAME = ''
+        COMMIT_HASH = ''
     }
 
     stages {
@@ -14,11 +14,23 @@ pipeline {
             }
         }
 
+        stage('Set Git Variables') {
+            steps {
+                script {
+                    // Capture the branch name and commit hash
+                    env.BRANCH_NAME = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    env.COMMIT_HASH = bat(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    echo "Branch Name: ${env.BRANCH_NAME}"
+                    echo "Commit Hash: ${env.COMMIT_HASH}"
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 script {
                     try {
-                        bat 'npm install'
+                        bat 'npm install --verbose'
                     }
                     catch (Exception e) {
                         echo "Error during npm install: ${e.message}"
@@ -32,7 +44,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        bat 'npm run build'
+                        bat 'npm run build --verbose'
                     }
                     catch (Exception e) {
                         echo "Error during npm run build: ${e.message}"
@@ -46,14 +58,12 @@ pipeline {
             steps {
                 script {
                     try {
-                        def commitHash = bat(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                        def branchName = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                        def imageTag = "${branchName}-${commitHash}"
+                        // Define the Docker image name using the commit hash and branch name
+                        def imageName = "mohamedtabrez/adopt-a-dog:${env.COMMIT_HASH}-${env.BRANCH_NAME}"
+                        echo "Building Docker image with tag: ${imageName}"
 
-                        bat """
-                        docker build -t ${DOCKER_IMAGE}:${imageTag} .
-                        """
-                        env.IMAGE_TAG = imageTag
+                        // Run the Docker build command to build the image and tag it
+                        bat "docker build -t ${imageName} ."
                     }
                     catch (Exception e) {
                         echo "Error during docker build: ${e.message}"
@@ -67,10 +77,12 @@ pipeline {
             steps {
                 script {
                     try {
-                        bat """
-                        echo ${DOCKER_HUB_CREDENTIALS_PSW} | docker login -u ${DOCKER_HUB_CREDENTIALS_USR} --password-stdin
-                        docker push ${DOCKER_IMAGE}:${env.IMAGE_TAG}
-                        """
+                        // Log in to Docker Hub
+                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'mohamedtabrez', passwordVariable: 'DockerHub@2024')]) {
+                            bat """
+                            echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+                            docker push ${imageName}
+                            """
                     }
                     catch (Exception e) {
                         echo "Error during docker push: ${e.message}"
